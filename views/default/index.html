@@ -1,0 +1,64 @@
+
+<br><br><br><br><br><br><br>
+<h1>Hello World</h1>
+<div id="prueba">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <canvas id="MyChart" width="400" height="200"></canvas>
+</div>
+<script>
+   new Chart(document.getElementById("MyChart"), {
+  type: 'bar',
+  data: {
+    labels: ["MAXIKING","PRUEBA1","PRUEBA2","PRUEBA3","PRUEBA4","PRUEBA5","PRUEBA6","PRUEBA7"],
+    datasets: [{
+      label: "PENDIENTE",
+      type: "bar",
+      stack: "Base",
+      backgroundColor: "#eece01",
+      data: [30, 31, 32, 33, 34, 35, 36,7],
+    }, {
+      label: "EN PAUSA",
+      type: "bar",
+      stack: "Base",
+      backgroundColor: "#87d84d",
+      data: [-15, -16, -17, -18, -19, -20, -21],
+    },  {
+      label: "COMPLETADO",
+      type: "bar",
+      stack: "Base",
+      backgroundColor: "#878787",
+      data: [-15, -16, -17, -18, -19, -20, -21],
+    },{
+      label: "Income - Sensitivity",
+      type: "bar",
+      stack: "Sensitivity",
+      backgroundColor: "#f8981f",      
+      data: [20, 21, 22, 23, 24, 25, 26],
+    }, {
+      label: "Tax - Sensitivity",
+      type: "bar",
+      stack: "Sensitivity",
+      backgroundColor: "#00b300",
+      backgroundColorHover: "#3e95cd",
+      data: [-10, -11, -12, -13, -14, -15, -16]
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        //stacked: true,
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          maxRotation: 0,
+          minRotation: 0
+        }
+      }],
+      yAxes: [{
+        stacked: true,
+      }]
+    },
+  }
+});
+</script>
+
