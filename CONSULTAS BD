@@ -1,0 +1,6 @@
+SELECT count(pedido.id_estado),estado.descripcion
+FROM estado 
+LEFT JOIN pedido ON pedido.id_estado=estado.id 
+LEFT JOIN proyecto ON pedido.id_proyecto=proyecto.id 
+WHERE pedido.id_proyecto=2
+GROUP BY estado.id
