@@ -4,3 +4,12 @@ LEFT JOIN pedido ON pedido.id_estado=estado.id
 LEFT JOIN proyecto ON pedido.id_proyecto=proyecto.id 
 WHERE pedido.id_proyecto=2
 GROUP BY estado.id
+
+
+
+SELECT estado.descripcion,estado.id,COUNT(pedido.id_estado) 
+FROM estado 
+RIGHT JOIN pedido ON pedido.id_estado=estado.id
+LEFT JOIN proyecto ON proyecto.id=pedido.id_proyecto
+WHERE proyecto.id IN (SELECT id FROM proyecto WHERE id=1)
+GROUP BY estado.id 
