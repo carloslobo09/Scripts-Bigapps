@@ -13,3 +13,15 @@ RIGHT JOIN pedido ON pedido.id_estado=estado.id
 LEFT JOIN proyecto ON proyecto.id=pedido.id_proyecto
 WHERE proyecto.id IN (SELECT id FROM proyecto WHERE id=1)
 GROUP BY estado.id 
+
+select PY.id,PY.descripcion, 
+  sum(case when E.descripcion = "Completado"  then 1 ELSE 0 end) as Completado,
+  sum(case when E.descripcion = "Vencido"  then 1 ELSE 0 end) as Vencido,
+  sum(case when E.descripcion = "Pendiente"  then 1 ELSE 0 end) as Pendiente,
+  sum(case when E.descripcion = "En Proceso"  then 1 ELSE 0 end) as EnProceso,
+  sum(case when E.descripcion = "Borrado"  then 1 ELSE 0 end) as Borrado
+FROM pedido P 
+INNER JOIN estado E ON P.id_estado = E.id
+INNER JOIN proyecto PY ON PY.id=P.id_proyecto
+group by P.id_proyecto order by PY.id;
+
