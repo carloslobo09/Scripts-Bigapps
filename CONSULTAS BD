@@ -25,3 +25,15 @@ INNER JOIN estado E ON P.id_estado = E.id
 INNER JOIN proyecto PY ON PY.id=P.id_proyecto
 group by P.id_proyecto order by PY.id;
 
+
+
+SELECT E.id,E.descripcion,COUNT(P.id_estado)
+FROM estado E
+LEFT JOIN pedido P ON E.id=P.id_estado
+WHERE E.id IN (1,2)
+UNION 
+SELECT E.id,E.descripcion,COUNT(P.id_estado)
+FROM estado E
+LEFT JOIN pedido P ON E.id=P.id_estado
+WHERE E.id NOT IN (1,2)
+GROUP BY E.id
