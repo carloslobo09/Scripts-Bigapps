@@ -37,3 +37,48 @@ FROM estado E
 LEFT JOIN pedido P ON E.id=P.id_estado
 WHERE E.id NOT IN (1,2)
 GROUP BY E.id
+
+
+SELECT count(pedido.id_estado),estado.descripcion
+FROM estado 
+LEFT JOIN pedido ON pedido.id_estado=estado.id 
+LEFT JOIN proyecto ON pedido.id_proyecto=proyecto.id 
+WHERE pedido.id_proyecto=2
+GROUP BY estado.id
+
+
+
+SELECT estado.descripcion,estado.id,COUNT(pedido.id_estado) 
+FROM estado 
+RIGHT JOIN pedido ON pedido.id_estado=estado.id
+LEFT JOIN proyecto ON proyecto.id=pedido.id_proyecto
+WHERE proyecto.id IN (SELECT id FROM proyecto WHERE id=1)
+GROUP BY estado.id 
+
+select PY.id,PY.descripcion, 
+  sum(case when E.descripcion = "Completado"  then 1 ELSE 0 end) as Completado,
+  sum(case when E.descripcion = "Vencido"  then 1 ELSE 0 end) as Vencido,
+  sum(case when E.descripcion = "Pendiente"  then 1 ELSE 0 end) as Pendiente,
+  sum(case when E.descripcion = "En Proceso"  then 1 ELSE 0 end) as EnProceso,
+  sum(case when E.descripcion = "Borrado"  then 1 ELSE 0 end) as Borrado
+FROM pedido P 
+INNER JOIN estado E ON P.id_estado = E.id
+INNER JOIN proyecto PY ON PY.id=P.id_proyecto
+group by P.id_proyecto order by PY.id;
+
+JSON
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status == 200){
+                    var respuesta = JSON.parse(xhttp.responseText)
+                    var provincias = respuesta.provincias;
+                    let prov=document.querySelector("#provincias")
+                    provincias.forEach(provincia => {
+                        prov.innerHTML += `<option value="${provincia.nombre}">${provincia.nombre}</option>`;
+                    });
+
+                }
+            }
+            xhttp.open("GET","fileData.json",true);
+            xhttp.send()           
